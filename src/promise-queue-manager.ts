@@ -28,7 +28,7 @@ export default class PromiseQueue<T> extends EventEmitter {
 
     private _promise: PromiseFunction<T>;
 
-    private _promises: Promise<T>[];
+    private _promises: Array<() => Promise<T>>;
 
     private _concurrence: number;
 
@@ -87,11 +87,11 @@ export default class PromiseQueue<T> extends EventEmitter {
         });
     }
 
-    private _executePromise(promise: Promise<T> | PromiseFunction<T>, item?: T): void {
+    private _executePromise(promise: () => Promise<T> | PromiseFunction<T>, item?: T): void {
         let execute: Promise<T>;
 
         if (!item) {
-            execute = promise as Promise<T>;
+            execute = promise() as Promise<T>;
         } else {
             const promiseFunction = promise as PromiseFunction<T>;
             execute = promiseFunction(item);

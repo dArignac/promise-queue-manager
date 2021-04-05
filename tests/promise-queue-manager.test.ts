@@ -45,7 +45,7 @@ describe('PromiseQueue suite', function() {
         it('should resolve promises without items', function(done) {
             try {
                 const config = {
-                    promises: [1, 2, 3, 4, 5].map((ms) => getMockPromise(ms)),
+                    promises: [1, 2, 3, 4, 5].map((ms) => () => getMockPromise(ms)),
                 };
 
                 const queue = new PromiseQueue(config, concurrence, shouldStopOnError);
@@ -69,7 +69,7 @@ describe('PromiseQueue suite', function() {
         it('should reject promises without items', function(done) {
             try {
                 const config = {
-                    promises: [1, 2, 3, 4, 5].map((ms) => getMockPromise(ms, ms % 2 === 0)),
+                    promises: [1, 2, 3, 4, 5].map((ms) => () => getMockPromise(ms, ms % 2 === 0)),
                 };
 
                 const queue = new PromiseQueue(config, concurrence, shouldStopOnError);
@@ -119,7 +119,7 @@ describe('PromiseQueue suite', function() {
         it('should resolve promises without items', function(done) {
             try {
                 const config = {
-                    promises: [1, 2, 3, 4, 5].map((ms) => getMockPromise(ms)),
+                    promises: [1, 2, 3, 4, 5].map((ms) => () => getMockPromise(ms)),
                 };
 
                 const queue = new PromiseQueue(config, concurrence, shouldStopOnError);
@@ -143,7 +143,7 @@ describe('PromiseQueue suite', function() {
         it('should reject promises without items', function(done) {
             try {
                 const config = {
-                    promises: [1, 2, 3, 4, 5].map((ms) => getMockPromise(ms, ms < 5)),
+                    promises: [1, 2, 3, 4, 5].map((ms) => () => getMockPromise(ms, ms < 5)),
                 };
 
                 const queue = new PromiseQueue(config, concurrence, shouldStopOnError);

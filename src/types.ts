@@ -21,5 +21,5 @@ export interface PrivateEvents {
 export interface Config<T> {
     items?: Array<T>;
     promise?: PromiseFunction<T>;
-    promises?: Promise<T>[];
+    promises?: Array<() => Promise<T>>;
 }
